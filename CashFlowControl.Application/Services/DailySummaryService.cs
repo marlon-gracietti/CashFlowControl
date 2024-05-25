@@ -1,6 +1,9 @@
 ﻿using CashFlowControl.Core.Entities;
 using CashFlowControl.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CashFlowControl.Application.Services
 {

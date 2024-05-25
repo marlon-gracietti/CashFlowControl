@@ -1,6 +1,8 @@
 ﻿using CashFlowControl.Core.Entities;
 using CashFlowControl.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CashFlowControl.Application.Services
 {
@@ -22,6 +24,11 @@ namespace CashFlowControl.Application.Services
         public async Task<IEnumerable<Transaction>> GetTransactions()
         {
             return await _context.Transactions.ToListAsync();
+        }
+
+        public async Task<Transaction> GetTransactionById(int id)
+        {
+            return await _context.Transactions.FindAsync(id);
         }
     }
 }

@@ -26,7 +26,7 @@ builder.Services.AddDbContext<CashFlowContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<TransactionService>(); 
+builder.Services.AddScoped<TransactionService>();
 
 var app = builder.Build();
 
@@ -37,14 +37,22 @@ logger.LogInformation("Starting application");
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<CashFlowContext>();
-    dbContext.Database.Migrate();
+    try
+    {
+        dbContext.Database.Migrate();
+        logger.LogInformation("Applied database migrations");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occurred while applying the database migrations");
+    }
 }
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     logger.LogInformation("Configuring Swagger in Development environment");
-    app.UseSwagger();    
+    app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "TransactionsServices API V1");

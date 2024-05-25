@@ -1,4 +1,6 @@
-﻿namespace CashFlowControl.Core.Entities
+﻿using System;
+
+namespace CashFlowControl.Core.Entities
 {
     public class DailySummary
     {
